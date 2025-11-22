@@ -2,11 +2,11 @@
   "name": "Meetang88",
   "short_name": "Meetang88",
   "description": "Meetang88 - เว็บคาสิโนออนไลน์ อันดับ 1",
-  "start_url": "/",
+  "start_url": "https://meetang88th.com/login",
   "scope": "/",
   "display": "standalone",
   "background_color": "#000000",
-  "theme_color": "#000000",
+  "theme_color": "#01875F",
   "orientation": "portrait-primary",
   "icons": [
     {
