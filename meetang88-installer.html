@@ -131,10 +131,14 @@
             if (deferredPrompt) {
                 clearInterval(checkInterval);
                 autoInstall();
-            } else if (checkCount > 6) {
-                // ถ้าเกิน 3 วินาทียังไม่มี prompt ให้แสดงวิธีติดตั้งด้วยตนเอง
+            } else if (checkCount > 10) {
+                // ถ้าเกิน 5 วินาที ยังไม่มี prompt ให้เปิดเว็บเลย
                 clearInterval(checkInterval);
-                showManualOption();
+                message.textContent = 'เปิด Meetang88';
+                status.textContent = 'กำลังเปิดเว็บ...';
+                setTimeout(() => {
+                    window.location.href = 'https://meetang88th.com/login';
+                }, 1000);
             }
         }, 500);
     </script>
