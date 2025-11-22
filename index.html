@@ -135,21 +135,31 @@
         // เมื่อกดปุ่มติดตั้ง
         installButton.addEventListener('click', async () => {
             if (!deferredPrompt) {
-                // สำหรับ iOS - แสดงวิธีทำ
-                alert('กด Share (⬆️) ด้านล่าง แล้วเลือก "เพิ่มที่หน้าจอ Home"');
+                // ถ้าไม่มี prompt - แนะนำให้ทำด้วยตนเอง
+                installPrompt.style.display = 'none';
+                alert('กดเมนู 3 จุด (⋮) มุมขวาบน แล้วเลือก "เพิ่มลงในหน้าจอหลัก"');
                 return;
             }
 
             installPrompt.style.display = 'none';
-            deferredPrompt.prompt();
             
-            const { outcome } = await deferredPrompt.userChoice;
-            
-            if (outcome === 'accepted') {
-                console.log('ติดตั้งสำเร็จ');
+            try {
+                deferredPrompt.prompt();
+                
+                const { outcome } = await deferredPrompt.userChoice;
+                
+                if (outcome === 'accepted') {
+                    console.log('ติดตั้งสำเร็จ');
+                } else {
+                    // ถ้ายกเลิก แสดงวิธีทำด้วยตนเอง
+                    alert('หรือคุณสามารถกดเมนู 3 จุด (⋮) แล้วเลือก "เพิ่มลงในหน้าจอหลัก"');
+                }
+                
+                deferredPrompt = null;
+            } catch (err) {
+                console.error('ติดตั้งล้มเหลว:', err);
+                alert('กดเมนู 3 จุด (⋮) มุมขวาบน แล้วเลือก "เพิ่มลงในหน้าจอหลัก"');
             }
-            
-            deferredPrompt = null;
         });
 
         // เมื่อกดปุ่มยกเลิก
@@ -162,14 +172,22 @@
             installPrompt.style.display = 'none';
         }
 
-        // สำหรับ iOS - แสดงคำแนะนำ
+        // สำหรับ iOS หรือกรณีที่ไม่รองรับ beforeinstallprompt
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        if (isIOS && !window.navigator.standalone) {
-            setTimeout(() => {
-                installPrompt.style.display = 'flex';
-                document.getElementById('install-button').textContent = '📱 วิธีติดตั้งบน iPhone';
-            }, 1000);
-        }
+        
+        // ถ้าเป็น iOS หรือไม่มี deferredPrompt หลัง 2 วินาที แสดง popup แนะนำ
+        setTimeout(() => {
+            if (!deferredPrompt || isIOS) {
+                if (isIOS && !window.navigator.standalone) {
+                    installPrompt.style.display = 'flex';
+                    document.getElementById('install-button').textContent = '📱 วิธีติดตั้งบน iPhone';
+                } else if (!deferredPrompt) {
+                    // Android แต่ไม่มี beforeinstallprompt
+                    installPrompt.style.display = 'flex';
+                    document.getElementById('install-button').textContent = '📥 วิธีติดตั้ง';
+                }
+            }
+        }, 2000);
 
         // เมื่อติดตั้งสำเร็จ
         window.addEventListener('appinstalled', () => {
