@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0D7C4F">
+    <title>ติดตั้ง Meetang88</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="https://meetang88th.com/static/img/site-logo.webp">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, sans-serif; }
+        body { background: linear-gradient(135deg, #0D7C4F, #0A5F3C); min-height: 100vh; display: flex; align-items: center; justify-content: center; color: #FFF; text-align: center; padding: 20px; }
+        .container { max-width: 400px; }
+        .logo { width: 120px; height: 120px; margin: 0 auto 24px; border-radius: 28px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.3); }
+        .logo img { width: 100%; height: 100%; object-fit: cover; }
+        h1 { font-size: 28px; margin-bottom: 12px; font-weight: 600; }
+        p { font-size: 16px; opacity: 0.9; margin-bottom: 32px; line-height: 1.5; }
+        .spinner { border: 4px solid rgba(255,255,255,.3); border-top: 4px solid #FFF; border-radius: 50%; width: 48px; height: 48px; animation: spin 1s linear infinite; margin: 0 auto 16px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .status { font-size: 14px; opacity: 0.8; }
+        .manual-btn { display: none; background: #FFF; color: #0D7C4F; border: none; padding: 14px 32px; font-size: 16px; font-weight: 600; border-radius: 8px; cursor: pointer; margin-top: 24px; }
+        .manual-btn:active { opacity: 0.9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://meetang88th.com/static/img/site-logo.webp" alt="Meetang88" onerror="this.src='site-logo.ico'">
+        </div>
+        <h1>Meetang88</h1>
+        <p id="message">กำลังติดตั้งแอพ...</p>
+        <div class="spinner" id="spinner"></div>
+        <div class="status" id="status">โปรดรอสักครู่</div>
+        <button class="manual-btn" id="manualBtn">ติดตั้งด้วยตนเอง</button>
+    </div>
+
+    <script>
+        let deferredPrompt;
+        const message = document.getElementById('message');
+        const status = document.getElementById('status');
+        const spinner = document.getElementById('spinner');
+        const manualBtn = document.getElementById('manualBtn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            autoInstall();
+        });
+
+        async function autoInstall() {
+            if (!deferredPrompt) {
+                message.textContent = 'เตรียมการติดตั้ง...';
+                status.textContent = 'กำลังโหลด...';
+                
+                setTimeout(() => {
+                    if (!deferredPrompt) {
+                        showManualOption();
+                    }
+                }, 3000);
+                return;
+            }
+
+            try {
+                status.textContent = 'กำลังติดตั้ง...';
+                
+                await deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                
+                if (outcome === 'accepted') {
+                    message.textContent = '✅ ติดตั้งสำเร็จ!';
+                    status.textContent = 'กำลังเปิดแอพ...';
+                    spinner.style.display = 'none';
+                    
+                    setTimeout(() => {
+                        window.location.href = 'https://meetang88th.com/login';
+                    }, 1500);
+                } else {
+                    showManualOption();
+                }
+                
+                deferredPrompt = null;
+            } catch (err) {
+                console.error('Install error:', err);
+                showManualOption();
+            }
+        }
+
+        function showManualOption() {
+            spinner.style.display = 'none';
+            message.textContent = 'ติดตั้งแอพ Meetang88';
+            
+            const isAndroid = /android/i.test(navigator.userAgent);
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            
+            if (isAndroid) {
+                status.innerHTML = 'กดเมนู <strong>3 จุด (⋮)</strong> มุมขวาบน<br>แล้วเลือก "เพิ่มลงในหน้าจอหลัก"';
+            } else if (isIOS) {
+                status.innerHTML = 'กด <strong>Share (📤)</strong><br>แล้วเลือก "เพิ่มไปที่หน้าจอโฮม"';
+            } else {
+                status.innerHTML = 'กดเมนู <strong>3 จุด (⋮)</strong><br>แล้วเลือก "ติดตั้งแอป"';
+            }
+            
+            manualBtn.style.display = 'inline-block';
+        }
+
+        manualBtn.addEventListener('click', () => {
+            window.location.href = 'https://meetang88th.com/login';
+        });
+
+        window.addEventListener('appinstalled', () => {
+            message.textContent = '✅ ติดตั้งสำเร็จ!';
+            status.textContent = 'กำลังเปิดแอพ...';
+            spinner.style.display = 'none';
+            
+            setTimeout(() => {
+                window.location.href = 'https://meetang88th.com/login';
+            }, 1000);
+        });
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            window.location.href = 'https://meetang88th.com/login';
+        }
+
+        setTimeout(() => {
+            if (deferredPrompt) {
+                autoInstall();
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
