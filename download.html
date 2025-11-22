@@ -122,10 +122,10 @@
             </div>
         </div>
 
-        <a href="meetang88-installer.html" style="text-decoration: none; color: inherit;">
+        <a href="/Meetang88.apk" download="Meetang88.apk" style="text-decoration: none; color: inherit;">
             <div class="install-banner" id="bannerBtn">
-                <div class="install-title">⚡ ติดตั้งอย่างรวดเร็ว</div>
-                <div class="install-subtitle">ดาวน์โหลดภายใน 10 วินาที</div>
+                <div class="install-title">⚡ ดาวน์โหลด Meetang88 APK</div>
+                <div class="install-subtitle">กดที่นี่เพื่อดาวน์โหลดและติดตั้ง</div>
             </div>
         </a>
 
@@ -147,9 +147,10 @@
             <span style="color: #5F6368;">→</span>
         </div>
         <div class="screenshots">
-            <div class="screenshot"><img src="https://www.pg68855.vip/_nuxt/home-app-1.CqOxqb-q.png" alt="Screenshot 1"></div>
-            <div class="screenshot"><img src="https://www.pg68855.vip/_nuxt/home-app-2.7xJX_06N.png" alt="Screenshot 2"></div>
-            <div class="screenshot"><img src="https://www.pg68855.vip/_nuxt/home-app-3.Dq0A5q5z.png" alt="Screenshot 3"></div>
+            <div class="screenshot"><img src="/review/PG-420.jpg" alt="Screenshot 1"></div>
+            <div class="screenshot"><img src="/review/PG-459.jpg" alt="Screenshot 2"></div>
+            <div class="screenshot"><img src="/review/PG-463-2.jpg" alt="Screenshot 3"></div>
+            <div class="screenshot"><img src="/review/PG-465.jpg" alt="Screenshot 4"></div>
         </div>
     </div>
 
@@ -261,99 +262,32 @@
         </div>
     </div>
 
-    <div class="install-popup" id="installPopup">
-        <div class="popup-header">
-            <div class="popup-icon">
-                <img src="https://meetang88th.com/static/img/site-logo.webp" alt="Meetang88" onerror="this.src='site-logo.ico'">
-            </div>
-            <div class="popup-info">
-                <div class="popup-title">ต้องการเข้าสู่แอป?</div>
-                <div class="popup-subtitle">192.168.1.126:8080</div>
-            </div>
-        </div>
-        <div class="popup-buttons">
-            <button class="popup-btn cancel" onclick="document.getElementById('installPopup').classList.remove('show')">ตกลง</button>
-            <button class="popup-btn install" id="installBtn">ติดตั้ง</button>
-        </div>
-    </div>
-
     <div class="loading" id="loading">
         <div class="spinner"></div>
-        <div class="loading-text">กำลังติดตั้ง...</div>
+        <div class="loading-text">กำลังเตรียมไฟล์...</div>
     </div>
 
     <script>
-        let deferredPrompt;
-        const installBtn = document.getElementById('installBtn');
+        // ฟังก์ชันสำหรับดาวน์โหลด APK
         const bannerBtn = document.getElementById('bannerBtn');
-        const installPopup = document.getElementById('installPopup');
         const loading = document.getElementById('loading');
 
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-        });
-
-        bannerBtn.addEventListener('click', (e) => {
-            // ปิดการแสดง popup เพราะจะไปหน้า installer แทน
-            // installPopup.classList.add('show');
-        });
-
-        installBtn.addEventListener('click', async () => {
-            installPopup.classList.remove('show');
-            loading.classList.add('show');
-
-            if (!deferredPrompt) {
-                // ถ้าไม่มี beforeinstallprompt ให้แสดงวิธีติดตั้งแบบ manual
-                loading.classList.remove('show');
+        // เพิ่ม event listener สำหรับการคลิก
+        if (bannerBtn) {
+            bannerBtn.addEventListener('click', function(e) {
+                // แสดง loading
+                loading.classList.add('show');
                 
-                const isAndroid = /android/i.test(navigator.userAgent);
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-                
-                if (isAndroid) {
-                    alert('กรุณากดเมนู 3 จุด (⋮) มุมขวาบน\nแล้วเลือก "เพิ่มลงในหน้าจอหลัก"');
-                } else if (isIOS) {
-                    alert('กรุณากด ไอคอน Share (📤)\nแล้วเลือก "เพิ่มไปที่หน้าจอโฮม"');
-                } else {
-                    alert('กรุณากดเมนู 3 จุด (⋮) แล้วเลือก "ติดตั้งแอป"');
-                }
-                return;
-            }
-
-            try {
-                // เรียก prompt ให้ติดตั้งอัตโนมัติ
-                await deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                
-                if (outcome === 'accepted') {
-                    // รอให้ติดตั้งเสร็จ แล้วเปิดเว็บหลัก
-                    setTimeout(() => {
-                        loading.classList.remove('show');
-                        window.location.href = 'https://meetang88th.com/login';
-                    }, 1500);
-                } else {
+                // ซ่อน loading หลังจาก 1.5 วินาที
+                setTimeout(() => {
                     loading.classList.remove('show');
-                }
-                
-                deferredPrompt = null;
-            } catch (err) {
-                loading.classList.remove('show');
-                console.error('Install error:', err);
-            }
-        });
-
-        window.addEventListener('appinstalled', () => {
-            setTimeout(() => {
-                window.location.href = 'https://meetang88th.com/login';
-            }, 1500);
-        });
-
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
+                }, 1500);
+            });
         }
 
-        if (window.matchMedia('(display-mode: standalone)').matches) {
-            window.location.href = 'https://meetang88th.com/login';
+        // ลงทะเบียน service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
         }
     </script>
 </body>
