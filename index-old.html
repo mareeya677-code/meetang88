@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Meetang88">
+    <title>Meetang88</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="https://meetang88th.com/static/img/site-logo.webp">
+    <link rel="apple-touch-icon" href="https://meetang88th.com/static/img/site-logo.webp">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        #webapp-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+        
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 30px;
+        }
+        
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .spinner {
+            border: 4px solid #333;
+            border-top: 4px solid #ffd700;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            color: #ffd700;
+            margin-top: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div id="loader">
+        <div class="logo-container">
+            <img src="https://meetang88th.com/static/img/site-logo.webp" alt="Meetang88" onerror="this.src='site-logo.ico'">
+        </div>
+        <div class="spinner"></div>
+        <div class="loading-text">กำลังโหลด Meetang88...</div>
+    </div>
+
+    <!-- ปุ่มติดตั้งแอป -->
+    <div id="install-prompt" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;">
+        <div style="background: #1a1a1a; border-radius: 20px; padding: 40px 30px; max-width: 400px; text-align: center; box-shadow: 0 10px 40px rgba(255,215,0,0.3);">
+            <img src="https://meetang88th.com/static/img/site-logo.webp" style="width: 100px; height: 100px; margin-bottom: 20px; border-radius: 20px;" onerror="this.src='site-logo.ico'">
+            <h2 style="color: #ffd700; margin-bottom: 10px; font-size: 24px;">ติดตั้ง Meetang88</h2>
+            <p style="color: #ccc; margin-bottom: 30px; font-size: 16px;">เพิ่มแอปลงหน้าจอหลักเพื่อเข้าถึงง่ายและรวดเร็วยิ่งขึ้น</p>
+            <button id="install-button" style="background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%); color: #000; border: none; padding: 16px 40px; font-size: 18px; font-weight: bold; border-radius: 50px; cursor: pointer; width: 100%; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(255,215,0,0.4);">
+                📥 ติดตั้งเลย
+            </button>
+            <button id="cancel-button" style="background: transparent; color: #999; border: 1px solid #444; padding: 12px 30px; font-size: 16px; border-radius: 50px; cursor: pointer; width: 100%;">
+                ไว้ทีหลัง
+            </button>
+        </div>
+    </div>
+    
+    <iframe id="webapp-frame" src="https://meetang88th.com/login"></iframe>
+
+    <script>
+        let deferredPrompt;
+        const installPrompt = document.getElementById('install-prompt');
+        const installButton = document.getElementById('install-button');
+        const cancelButton = document.getElementById('cancel-button');
+        
+        // ซ่อน loader เมื่อโหลดเสร็จ
+        const iframe = document.getElementById('webapp-frame');
+        const loader = document.getElementById('loader');
+        
+        iframe.addEventListener('load', () => {
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        });
+
+        // จับ event beforeinstallprompt (สำหรับ Android)
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // แสดงปุ่มติดตั้งทันทีเมื่อโหลดเสร็จ
+            setTimeout(() => {
+                installPrompt.style.display = 'flex';
+            }, 1000);
+        });
+
+        // เมื่อกดปุ่มติดตั้ง
+        installButton.addEventListener('click', async () => {
+            if (!deferredPrompt) {
+                // ถ้าไม่มี prompt - แนะนำให้ทำด้วยตนเอง
+                installPrompt.style.display = 'none';
+                alert('กดเมนู 3 จุด (⋮) มุมขวาบน แล้วเลือก "เพิ่มลงในหน้าจอหลัก"');
+                return;
+            }
+
+            installPrompt.style.display = 'none';
+            
+            try {
+                deferredPrompt.prompt();
+                
+                const { outcome } = await deferredPrompt.userChoice;
+                
+                if (outcome === 'accepted') {
+                    console.log('ติดตั้งสำเร็จ');
+                } else {
+                    // ถ้ายกเลิก แสดงวิธีทำด้วยตนเอง
+                    alert('หรือคุณสามารถกดเมนู 3 จุด (⋮) แล้วเลือก "เพิ่มลงในหน้าจอหลัก"');
+                }
+                
+                deferredPrompt = null;
+            } catch (err) {
+                console.error('ติดตั้งล้มเหลว:', err);
+                alert('กดเมนู 3 จุด (⋮) มุมขวาบน แล้วเลือก "เพิ่มลงในหน้าจอหลัก"');
+            }
+        });
+
+        // เมื่อกดปุ่มยกเลิก
+        cancelButton.addEventListener('click', () => {
+            installPrompt.style.display = 'none';
+        });
+
+        // ตรวจสอบว่าติดตั้งแล้วหรือยัง
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+            installPrompt.style.display = 'none';
+        }
+
+        // สำหรับ iOS หรือกรณีที่ไม่รองรับ beforeinstallprompt
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        
+        // ถ้าเป็น iOS หรือไม่มี deferredPrompt หลัง 2 วินาที แสดง popup แนะนำ
+        setTimeout(() => {
+            if (!deferredPrompt || isIOS) {
+                if (isIOS && !window.navigator.standalone) {
+                    installPrompt.style.display = 'flex';
+                    document.getElementById('install-button').textContent = '📱 วิธีติดตั้งบน iPhone';
+                } else if (!deferredPrompt) {
+                    // Android แต่ไม่มี beforeinstallprompt
+                    installPrompt.style.display = 'flex';
+                    document.getElementById('install-button').textContent = '📥 วิธีติดตั้ง';
+                }
+            }
+        }, 2000);
+
+        // เมื่อติดตั้งสำเร็จ
+        window.addEventListener('appinstalled', () => {
+            installPrompt.style.display = 'none';
+            console.log('PWA ติดตั้งเรียบร้อย');
+        });
+
+        // ลงทะเบียน Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registered:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+
+        // ป้องกัน zoom
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('touchmove', function(e) {
+            if (e.scale !== 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    </script>
+</body>
+</html>
