@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Meetang88">
+    <title>Meetang88</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icon-192.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        #installButton {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        #installButton:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        #installButton:active {
+            transform: translateY(0);
+        }
+        
+        #installButton:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .status.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .manual-steps {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: left;
+            display: none;
+        }
+        
+        .manual-steps h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .manual-steps ol {
+            padding-left: 20px;
+            color: #555;
+        }
+        
+        .manual-steps li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        
+        .redirect-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            font-size: 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+        
+        .redirect-btn:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🎰</div>
+        <h1>Meetang88</h1>
+        <p>ติดตั้งแอปบนมือถือของคุณเพื่อเข้าถึงง่ายและรวดเร็วยิ่งขึ้น</p>
+        
+        <button id="installButton">
+            📥 ติดตั้งแอป
+        </button>
+        
+        <div id="statusMessage" class="status"></div>
+        
+        <div id="manualSteps" class="manual-steps">
+            <h3>📱 วิธีติดตั้งด้วยตนเอง:</h3>
+            <ol>
+                <li>กดปุ่มเมนู 3 จุด (⋮) มุมขวาบน</li>
+                <li>เลือก "เพิ่มลงในหน้าจอหลัก" หรือ "ติดตั้งแอป"</li>
+                <li>กด "เพิ่ม" หรือ "ติดตั้ง"</li>
+            </ol>
+        </div>
+        
+        <button class="redirect-btn" onclick="window.location.href='https://meetang88th.com/login'">
+            🚀 เปิดเว็บไซต์
+        </button>
+    </div>
+
+    <script>
+        let deferredPrompt;
+        const installButton = document.getElementById('installButton');
+        const statusMessage = document.getElementById('statusMessage');
+        const manualSteps = document.getElementById('manualSteps');
+
+        // ฟังก์ชันแสดงข้อความสถานะ
+        function showStatus(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.className = `status ${type}`;
+            statusMessage.style.display = 'block';
+        }
+
+        // ตรวจสอบว่าเป็น standalone mode หรือไม่ (ติดตั้งแล้ว)
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+            showStatus('✅ แอปถูกติดตั้งแล้ว! กำลังเปิด...', 'success');
+            installButton.style.display = 'none';
+            setTimeout(() => {
+                window.location.href = 'https://meetang88th.com/login';
+            }, 1500);
+        }
+
+        // จับ event beforeinstallprompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // ป้องกันการแสดง mini-infobar อัตโนมัติ
+            e.preventDefault();
+            // เก็บ event ไว้ใช้ภายหลัง
+            deferredPrompt = e;
+            // แสดงปุ่มติดตั้ง
+            installButton.style.display = 'block';
+            installButton.disabled = false;
+            
+            console.log('PWA ติดตั้งได้แล้ว');
+        });
+
+        // เมื่อกดปุ่มติดตั้ง
+        installButton.addEventListener('click', async () => {
+            if (!deferredPrompt) {
+                // ถ้าไม่สามารถติดตั้งอัตโนมัติได้ แสดงวิธีทำด้วยตนเอง
+                showStatus('⚠️ กรุณาติดตั้งด้วยตนเองตามขั้นตอนด้านล่าง', 'warning');
+                manualSteps.style.display = 'block';
+                return;
+            }
+
+            // แสดง prompt การติดตั้ง
+            deferredPrompt.prompt();
+            
+            // รอผลการเลือกของผู้ใช้
+            const { outcome } = await deferredPrompt.userChoice;
+            
+            if (outcome === 'accepted') {
+                showStatus('✅ กำลังติดตั้ง... รอสักครู่', 'success');
+                // เปลี่ยนเส้นทางหลังติดตั้งสำเร็จ
+                setTimeout(() => {
+                    window.location.href = 'https://meetang88th.com/login';
+                }, 2000);
+            } else {
+                showStatus('ℹ️ คุณยกเลิกการติดตั้ง ลองติดตั้งด้วยตนเองด้านล่าง', 'info');
+                manualSteps.style.display = 'block';
+            }
+            
+            // ล้างค่า deferredPrompt
+            deferredPrompt = null;
+            installButton.disabled = true;
+        });
+
+        // เมื่อติดตั้งสำเร็จ
+        window.addEventListener('appinstalled', (evt) => {
+            showStatus('🎉 ติดตั้งสำเร็จ! กำลังเปิดแอป...', 'success');
+            deferredPrompt = null;
+            setTimeout(() => {
+                window.location.href = 'https://meetang88th.com/login';
+            }, 1500);
+        });
+
+        // สำหรับ iOS Safari (ไม่รองรับ beforeinstallprompt)
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
+
+        if (isIOS && !isInStandaloneMode) {
+            installButton.addEventListener('click', () => {
+                showStatus('📱 สำหรับ iPhone: กด Share (🔼) → "เพิ่มที่หน้าจอ Home"', 'info');
+                manualSteps.style.display = 'block';
+                manualSteps.innerHTML = `
+                    <h3>📱 วิธีติดตั้งบน iPhone:</h3>
+                    <ol>
+                        <li>กดปุ่ม <strong>Share (🔼)</strong> ด้านล่าง</li>
+                        <li>เลื่อนหา <strong>"เพิ่มที่หน้าจอ Home"</strong></li>
+                        <li>กด <strong>"เพิ่ม"</strong> มุมขวาบน</li>
+                    </ol>
+                `;
+            });
+        }
+
+        // ลงทะเบียน Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('Service Worker ลงทะเบียนสำเร็จ:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker ลงทะเบียนล้มเหลว:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
