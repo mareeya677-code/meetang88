@@ -3,391 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#000000">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Meetang88">
-    <title>Meetang88 - ติดตั้งแอป</title>
+    <meta name="theme-color" content="#FFFFFF">
+    <title>Meetang88</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="https://meetang88th.com/static/img/site-logo.webp">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', 'Kanit', Tahoma, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
-            min-height: 100vh;
-            color: #fff;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Header Section */
-        .header {
-            text-align: center;
-            padding: 30px 0 20px;
-        }
-
-        .app-icon {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
-            border-radius: 25px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.3);
-            border: 3px solid #ffd700;
-        }
-
-        .app-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .app-name {
-            font-size: 32px;
-            font-weight: bold;
-            color: #ffd700;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 10px rgba(255, 215, 0, 0.5);
-        }
-
-        .app-subtitle {
-            font-size: 16px;
-            color: #ccc;
-            margin-bottom: 20px;
-        }
-
-        /* Stats Section */
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
-            backdrop-filter: blur(10px);
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ffd700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: #999;
-            margin-top: 5px;
-        }
-
-        /* Install Button */
-        .install-section {
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 30px 0;
-            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
-            text-align: center;
-        }
-
-        .install-title {
-            font-size: 18px;
-            color: #000;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .install-subtitle {
-            font-size: 14px;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .install-button {
-            background: #000;
-            color: #ffd700;
-            border: none;
-            padding: 18px 50px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            width: 100%;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .install-button:active {
-            transform: scale(0.98);
-        }
-
-        /* Features Section */
-        .features {
-            margin: 30px 0;
-        }
-
-        .feature-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            backdrop-filter: blur(10px);
-        }
-
-        .feature-icon {
-            font-size: 30px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .feature-text h3 {
-            font-size: 16px;
-            color: #ffd700;
-            margin-bottom: 5px;
-        }
-
-        .feature-text p {
-            font-size: 13px;
-            color: #999;
-        }
-
-        /* Screenshots */
-        .screenshots {
-            margin: 30px 0;
-        }
-
-        .screenshots-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .screenshots-slider {
-            display: flex;
-            gap: 15px;
-            overflow-x: auto;
-            padding: 10px 0;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-
-        .screenshots-slider::-webkit-scrollbar {
-            display: none;
-        }
-
-        .screenshot-item {
-            min-width: 200px;
-            height: 350px;
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: #666;
-        }
-
-        /* Manual Install */
-        .manual-install {
-            background: rgba(255, 215, 0, 0.1);
-            border: 2px dashed #ffd700;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 30px 0;
-        }
-
-        .manual-install h3 {
-            font-size: 16px;
-            color: #ffd700;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .manual-install ol {
-            padding-left: 20px;
-            color: #ccc;
-        }
-
-        .manual-install li {
-            margin-bottom: 10px;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 30px 0;
-            color: #666;
-            font-size: 12px;
-        }
-
-        /* Loading Overlay */
-        .loading-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .loading-overlay.active {
-            display: flex;
-        }
-
-        .spinner {
-            border: 4px solid rgba(255, 215, 0, 0.3);
-            border-top: 4px solid #ffd700;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .loading-text {
-            color: #ffd700;
-            font-size: 18px;
-            margin-top: 20px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        body { background: #FFF; color: #202124; }
+        .header { background: #FFF; padding: 12px 16px; display: flex; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #E8EAED; }
+        .header-btn { width: 40px; height: 40px; border: none; background: none; font-size: 22px; cursor: pointer; border-radius: 50%; }
+        .header-btn:active { background: #F1F3F4; }
+        .spacer { flex: 1; }
+        .app-section { padding: 20px 16px; }
+        .app-top { display: flex; gap: 16px; margin-bottom: 16px; }
+        .app-icon { width: 80px; height: 80px; border-radius: 20px; overflow: hidden; box-shadow: 0 1px 2px rgba(60,64,67,.3), 0 2px 6px 2px rgba(60,64,67,.15); }
+        .app-icon img { width: 100%; height: 100%; object-fit: cover; }
+        .app-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .app-name { font-size: 24px; font-weight: 400; color: #202124; margin-bottom: 4px; }
+        .app-verified { font-size: 14px; color: #01875F; margin-bottom: 4px; }
+        .app-verified-text { font-size: 12px; color: #5F6368; }
+        .stats { display: flex; justify-content: space-around; padding: 16px 0; border-top: 1px solid #E8EAED; border-bottom: 1px solid #E8EAED; margin-bottom: 16px; }
+        .stat { text-align: center; flex: 1; }
+        .stat-value { font-size: 14px; font-weight: 500; color: #202124; margin-bottom: 4px; }
+        .stat-label { font-size: 12px; color: #5F6368; }
+        .install-banner { background: linear-gradient(135deg, #0D7C4F, #0A5F3C); border-radius: 8px; padding: 16px; text-align: center; margin-bottom: 16px; position: relative; overflow: hidden; cursor: pointer; }
+        .install-banner:active { opacity: 0.9; }
+        .install-banner::before { content: ''; position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.1)"/></svg>'); background-size: cover; }
+        .install-title { color: #FFF; font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+        .install-subtitle { color: rgba(255,255,255,0.9); font-size: 13px; }
+        .actions { display: flex; gap: 24px; padding: 12px 0; border-bottom: 8px solid #F1F3F4; }
+        .action-btn { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; color: #5F6368; font-size: 12px; padding: 8px; }
+        .action-icon { font-size: 24px; }
+        .section { padding: 20px 16px; background: #FFF; }
+        .section-title { font-size: 16px; font-weight: 500; color: #202124; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+        .screenshots { display: flex; gap: 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .screenshots::-webkit-scrollbar { display: none; }
+        .screenshot { min-width: 180px; height: 320px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,.1); }
+        .screenshot img { width: 100%; height: 100%; object-fit: cover; }
+        .divider { height: 8px; background: #F1F3F4; }
+        .about-text { font-size: 14px; line-height: 20px; color: #5F6368; margin-bottom: 8px; }
+        .read-more { color: #01875F; font-size: 14px; font-weight: 500; cursor: pointer; }
+        .updated { font-size: 12px; color: #5F6368; margin-top: 12px; }
+        .safety-items { display: flex; flex-direction: column; gap: 16px; }
+        .safety-item { display: flex; gap: 12px; }
+        .safety-icon { font-size: 24px; width: 24px; flex-shrink: 0; }
+        .safety-text h4 { font-size: 14px; font-weight: 500; color: #202124; margin-bottom: 4px; }
+        .safety-text p { font-size: 12px; color: #5F6368; line-height: 16px; }
+        .rating-summary { display: flex; gap: 24px; margin-bottom: 24px; }
+        .rating-score { text-align: center; }
+        .rating-number { font-size: 56px; font-weight: 400; color: #202124; line-height: 1; }
+        .rating-stars { color: #01875F; font-size: 16px; margin: 8px 0; }
+        .rating-count { font-size: 12px; color: #5F6368; }
+        .rating-bars { flex: 1; }
+        .rating-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+        .bar-label { font-size: 12px; color: #5F6368; width: 10px; }
+        .bar-track { flex: 1; height: 8px; background: #E8EAED; border-radius: 4px; overflow: hidden; }
+        .bar-fill { height: 100%; background: #01875F; }
+        .review { padding: 16px 0; border-top: 1px solid #E8EAED; }
+        .review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+        .reviewer-avatar { width: 32px; height: 32px; border-radius: 50%; overflow: hidden; }
+        .reviewer-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .reviewer-name { font-size: 14px; font-weight: 500; color: #202124; }
+        .review-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .review-stars { color: #01875F; font-size: 12px; }
+        .review-date { font-size: 12px; color: #5F6368; }
+        .review-text { font-size: 14px; line-height: 20px; color: #202124; }
+        .loading { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,.5); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; }
+        .loading.show { display: flex; }
+        .spinner { border: 3px solid rgba(255,255,255,.3); border-top: 3px solid #FFF; border-radius: 50%; width: 40px; height: 40px; animation: spin .8s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loading-text { color: #FFF; font-size: 14px; margin-top: 16px; }
+        .install-popup { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #FFF; border-radius: 16px 16px 0 0; box-shadow: 0 -2px 10px rgba(0,0,0,.2); padding: 20px; z-index: 10000; animation: slideUp 0.3s ease; }
+        .install-popup.show { display: block; }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .popup-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+        .popup-icon { width: 48px; height: 48px; border-radius: 12px; overflow: hidden; }
+        .popup-icon img { width: 100%; height: 100%; object-fit: cover; }
+        .popup-info { flex: 1; }
+        .popup-title { font-size: 16px; font-weight: 500; color: #202124; }
+        .popup-subtitle { font-size: 12px; color: #5F6368; }
+        .popup-buttons { display: flex; gap: 12px; }
+        .popup-btn { flex: 1; padding: 10px; border: none; border-radius: 4px; font-size: 14px; font-weight: 500; cursor: pointer; }
+        .popup-btn.cancel { background: #F1F3F4; color: #5F6368; }
+        .popup-btn.install { background: #01875F; color: #FFF; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
+    <div class="header">
+        <button class="header-btn" onclick="history.back()">←</button>
+        <div class="spacer"></div>
+        <button class="header-btn">🔍</button>
+        <button class="header-btn">⋮</button>
+    </div>
+
+    <div class="app-section">
+        <div class="app-top">
             <div class="app-icon">
                 <img src="https://meetang88th.com/static/img/site-logo.webp" alt="Meetang88" onerror="this.src='site-logo.ico'">
             </div>
-            <h1 class="app-name">Meetang88</h1>
-            <p class="app-subtitle">ยินยันโดย Play Protect</p>
+            <div class="app-info">
+                <h1 class="app-name">Meetang88</h1>
+                <div class="app-verified">Meetang88</div>
+                <div class="app-verified-text">Verified by Play Protect</div>
+            </div>
         </div>
 
-        <!-- Stats -->
         <div class="stats">
-            <div class="stat-item">
-                <div class="stat-value">4.90 ⭐</div>
-                <div class="stat-label">75K+ รีวิว</div>
+            <div class="stat">
+                <div class="stat-value">4.90 ★</div>
+                <div class="stat-label">75K+ reviews</div>
             </div>
-            <div class="stat-item">
+            <div class="stat">
                 <div class="stat-value">399K+</div>
-                <div class="stat-label">ดาวน์โหลด</div>
+                <div class="stat-label">Download</div>
             </div>
-            <div class="stat-item">
+            <div class="stat">
                 <div class="stat-value">18+</div>
-                <div class="stat-label">เหมาะสำหรับ 18+</div>
+                <div class="stat-label">Rated for 18+</div>
             </div>
         </div>
 
-        <!-- Install Button -->
-        <div class="install-section">
+        <div class="install-banner" id="bannerBtn">
             <div class="install-title">⚡ ติดตั้งอย่างรวดเร็ว</div>
             <div class="install-subtitle">ดาวน์โหลดภายใน 10 วินาที</div>
-            <button class="install-button" id="installBtn">
-                <span>📥</span>
-                <span>ติดตั้ง</span>
+        </div>
+
+        <div class="actions">
+            <button class="action-btn">
+                <div class="action-icon">📤</div>
+                <div>Share</div>
             </button>
-        </div>
-
-        <!-- Features -->
-        <div class="features">
-            <div class="feature-item">
-                <div class="feature-icon">🔐</div>
-                <div class="feature-text">
-                    <h3>ปลอดภัย 100%</h3>
-                    <p>ได้รับการยืนยันโดย Play Protect</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">⚡</div>
-                <div class="feature-text">
-                    <h3>เร็วและลื่นไหล</h3>
-                    <p>ประสบการณ์การใช้งานที่ดีที่สุด</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">🎰</div>
-                <div class="feature-text">
-                    <h3>เกมมากมาย</h3>
-                    <p>เกมสล็อตและคาสิโนกว่า 1000+ เกม</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Screenshots -->
-        <div class="screenshots">
-            <h2 class="screenshots-title">📸 ภาพหน้าจอ</h2>
-            <div class="screenshots-slider">
-                <div class="screenshot-item">📷 ภาพ 1</div>
-                <div class="screenshot-item">📷 ภาพ 2</div>
-                <div class="screenshot-item">📷 ภาพ 3</div>
-            </div>
-        </div>
-
-        <!-- Manual Install Guide -->
-        <div class="manual-install">
-            <h3>📱 วิธีติดตั้งด้วยตนเอง</h3>
-            <ol>
-                <li>กดปุ่ม <strong>เมนู 3 จุด (⋮)</strong> มุมขวาบน</li>
-                <li>เลือก <strong>"เพิ่มลงในหน้าจอหลัก"</strong> หรือ <strong>"ติดตั้งแอป"</strong></li>
-                <li>กด <strong>"เพิ่ม"</strong> หรือ <strong>"ติดตั้ง"</strong></li>
-                <li>แอปจะปรากฏบนหน้าจอหลักของคุณ</li>
-            </ol>
-        </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <p>© 2025 Meetang88. All rights reserved.</p>
-            <p>สำหรับผู้เล่นอายุ 18 ปีขึ้นไปเท่านั้น</p>
+            <button class="action-btn">
+                <div class="action-icon">📌</div>
+                <div>Add to wishlist</div>
+            </button>
         </div>
     </div>
 
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
+    <div class="section">
+        <div class="section-title">
+            <span>About this app</span>
+            <span style="color: #5F6368;">→</span>
+        </div>
+        <div class="screenshots">
+            <div class="screenshot"><img src="https://www.pg68855.vip/_nuxt/home-app-1.CqOxqb-q.png" alt="Screenshot 1"></div>
+            <div class="screenshot"><img src="https://www.pg68855.vip/_nuxt/home-app-2.7xJX_06N.png" alt="Screenshot 2"></div>
+            <div class="screenshot"><img src="https://www.pg68855.vip/_nuxt/home-app-3.Dq0A5q5z.png" alt="Screenshot 3"></div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+        <div class="about-text">
+            True happiness *The hottest games of 2025* The ringtone of the reels, the lights on the screen, and the thrill of victory! It brings the sights and sounds of the gaming experience right to your home, letting your winnings soar to new heights! The more you spin, the more you win! Final winnings are not guaranteed.
+        </div>
+        <div class="read-more">Read more</div>
+        <div class="updated">Updated on January 5, 2025</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+        <div class="section-title" style="margin-bottom: 16px;">Data security</div>
+        <div class="safety-items">
+            <div class="safety-item">
+                <div class="safety-icon">📤</div>
+                <div class="safety-text">
+                    <h4>This app may share these types of data with third parties</h4>
+                    <p>Location, Financial Information, and Device Identifiers and Others</p>
+                </div>
+            </div>
+            <div class="safety-item">
+                <div class="safety-icon">☁️</div>
+                <div class="safety-text">
+                    <h4>This app may collect these types of data</h4>
+                    <p>Location, Personal information and 5 more</p>
+                </div>
+            </div>
+            <div class="safety-item">
+                <div class="safety-icon">🔒</div>
+                <div class="safety-text">
+                    <h4>Data is not encrypted</h4>
+                </div>
+            </div>
+            <div class="safety-item">
+                <div class="safety-icon">🗑️</div>
+                <div class="safety-text">
+                    <h4>You can request the deletion of data</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+        <div class="section-title" style="margin-bottom: 16px;">Ratings and reviews</div>
+        
+        <div class="rating-summary">
+            <div class="rating-score">
+                <div class="rating-number">4.90</div>
+                <div class="rating-stars">★★★★☆</div>
+                <div class="rating-count">75,658</div>
+            </div>
+            <div class="rating-bars">
+                <div class="rating-bar">
+                    <span class="bar-label">5</span>
+                    <div class="bar-track"><div class="bar-fill" style="width: 80%"></div></div>
+                </div>
+                <div class="rating-bar">
+                    <span class="bar-label">4</span>
+                    <div class="bar-track"><div class="bar-fill" style="width: 15%"></div></div>
+                </div>
+                <div class="rating-bar">
+                    <span class="bar-label">3</span>
+                    <div class="bar-track"><div class="bar-fill" style="width: 3%"></div></div>
+                </div>
+                <div class="rating-bar">
+                    <span class="bar-label">2</span>
+                    <div class="bar-track"><div class="bar-fill" style="width: 1%"></div></div>
+                </div>
+                <div class="rating-bar">
+                    <span class="bar-label">1</span>
+                    <div class="bar-track"><div class="bar-fill" style="width: 1%"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div class="reviewer-avatar">
+                    <img src="https://www.pg68855.vip/common/store/_nuxt/home-user-1.JvCXdScN.png" alt="Miguel">
+                </div>
+                <div class="reviewer-name">Miguel</div>
+            </div>
+            <div class="review-meta">
+                <div class="review-stars">★★★★★</div>
+                <div class="review-date">2/7/2025</div>
+            </div>
+            <div class="review-text">Fun game with huge bonuses</div>
+        </div>
+
+        <div class="review">
+            <div class="review-header">
+                <div class="reviewer-avatar">
+                    <img src="https://www.pg68855.vip/common/store/_nuxt/home-user-2.ZKAtg-tV.png" alt="Greg">
+                </div>
+                <div class="reviewer-name">Greg Blake</div>
+            </div>
+            <div class="review-meta">
+                <div class="review-stars">★★★★★</div>
+                <div class="review-date">1/5/2025</div>
+            </div>
+            <div class="review-text">Very fun casual game, you can also earn money</div>
+        </div>
+    </div>
+
+    <div class="install-popup" id="installPopup">
+        <div class="popup-header">
+            <div class="popup-icon">
+                <img src="https://meetang88th.com/static/img/site-logo.webp" alt="Meetang88" onerror="this.src='site-logo.ico'">
+            </div>
+            <div class="popup-info">
+                <div class="popup-title">ต้องการเข้าสู่แอป?</div>
+                <div class="popup-subtitle">192.168.1.126:8080</div>
+            </div>
+        </div>
+        <div class="popup-buttons">
+            <button class="popup-btn cancel" onclick="document.getElementById('installPopup').classList.remove('show')">ตกลง</button>
+            <button class="popup-btn install" id="installBtn">ติดตั้ง</button>
+        </div>
+    </div>
+
+    <div class="loading" id="loading">
         <div class="spinner"></div>
         <div class="loading-text">กำลังติดตั้ง...</div>
     </div>
@@ -395,72 +283,73 @@
     <script>
         let deferredPrompt;
         const installBtn = document.getElementById('installBtn');
-        const loadingOverlay = document.getElementById('loadingOverlay');
+        const bannerBtn = document.getElementById('bannerBtn');
+        const installPopup = document.getElementById('installPopup');
+        const loading = document.getElementById('loading');
 
-        // จับ beforeinstallprompt event
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            console.log('PWA installable');
         });
 
-        // เมื่อกดปุ่มติดตั้ง
+        bannerBtn.addEventListener('click', () => {
+            installPopup.classList.add('show');
+        });
+
         installBtn.addEventListener('click', async () => {
+            installPopup.classList.remove('show');
+            loading.classList.add('show');
+
             if (!deferredPrompt) {
-                // ถ้าไม่มี prompt - แสดงวิธีทำด้วยตนเอง
-                alert('กรุณากดเมนู 3 จุด (⋮) มุมขวาบน\nแล้วเลือก "เพิ่มลงในหน้าจอหลัก" หรือ "ติดตั้งแอป"');
+                // ถ้าไม่มี beforeinstallprompt ให้แสดงวิธีติดตั้งแบบ manual
+                loading.classList.remove('show');
+                
+                const isAndroid = /android/i.test(navigator.userAgent);
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+                
+                if (isAndroid) {
+                    alert('กรุณากดเมนู 3 จุด (⋮) มุมขวาบน\nแล้วเลือก "เพิ่มลงในหน้าจอหลัก"');
+                } else if (isIOS) {
+                    alert('กรุณากด ไอคอน Share (📤)\nแล้วเลือก "เพิ่มไปที่หน้าจอโฮม"');
+                } else {
+                    alert('กรุณากดเมนู 3 จุด (⋮) แล้วเลือก "ติดตั้งแอป"');
+                }
                 return;
             }
 
-            // แสดง loading
-            loadingOverlay.classList.add('active');
-
             try {
-                // แสดง install prompt
+                // เรียก prompt ให้ติดตั้งอัตโนมัติ
                 await deferredPrompt.prompt();
-                
-                // รอผลการเลือก
                 const { outcome } = await deferredPrompt.userChoice;
                 
                 if (outcome === 'accepted') {
-                    console.log('ติดตั้งสำเร็จ');
+                    // รอให้ติดตั้งเสร็จ แล้วเปิดเว็บหลัก
                     setTimeout(() => {
-                        loadingOverlay.classList.remove('active');
-                        // เปลี่ยนเส้นทางไปหน้าเว็บหลัก
+                        loading.classList.remove('show');
                         window.location.href = 'https://meetang88th.com/login';
-                    }, 2000);
+                    }, 1500);
                 } else {
-                    loadingOverlay.classList.remove('active');
-                    alert('คุณสามารถติดตั้งได้ทุกเมื่อโดยกดเมนู 3 จุด (⋮) แล้วเลือก "เพิ่มลงในหน้าจอหลัก"');
+                    loading.classList.remove('show');
                 }
                 
                 deferredPrompt = null;
             } catch (err) {
-                console.error('ติดตั้งล้มเหลว:', err);
-                loadingOverlay.classList.remove('active');
-                alert('กรุณากดเมนู 3 จุด (⋮) มุมขวาบน\nแล้วเลือก "เพิ่มลงในหน้าจอหลัก"');
+                loading.classList.remove('show');
+                console.error('Install error:', err);
             }
         });
 
-        // เมื่อติดตั้งสำเร็จ
         window.addEventListener('appinstalled', () => {
-            console.log('PWA ติดตั้งแล้ว');
             setTimeout(() => {
                 window.location.href = 'https://meetang88th.com/login';
             }, 1500);
         });
 
-        // ลงทะเบียน Service Worker
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(reg => console.log('Service Worker registered'))
-                    .catch(err => console.log('Service Worker registration failed:', err));
-            });
+            navigator.serviceWorker.register('sw.js');
         }
 
-        // ถ้าติดตั้งแล้ว เปลี่ยนเส้นทางไปเว็บหลัก
-        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+        if (window.matchMedia('(display-mode: standalone)').matches) {
             window.location.href = 'https://meetang88th.com/login';
         }
     </script>
