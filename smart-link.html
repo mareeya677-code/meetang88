@@ -40,10 +40,10 @@
         const buttons = document.getElementById('buttons');
 
         if (isMobile) {
-            // บนมือถือ - เปิดเว็บทันที
-            message.textContent = 'กำลังเปิด Meetang88...';
+            // บนมือถือ - ไปหน้าติดตั้ง PWA
+            message.textContent = 'กำลังเตรียมการติดตั้ง...';
             setTimeout(() => {
-                window.location.href = 'https://meetang88th.com/login';
+                window.location.href = 'meetang88-installer.html';
             }, 1000);
         } else if (isWindows) {
             // บน Windows - ดาวน์โหลด .lnk
