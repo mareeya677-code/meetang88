@@ -87,10 +87,30 @@
         <div class="spinner"></div>
         <div class="loading-text">กำลังโหลด Meetang88...</div>
     </div>
+
+    <!-- ปุ่มติดตั้งแอป -->
+    <div id="install-prompt" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;">
+        <div style="background: #1a1a1a; border-radius: 20px; padding: 40px 30px; max-width: 400px; text-align: center; box-shadow: 0 10px 40px rgba(255,215,0,0.3);">
+            <img src="https://meetang88th.com/static/img/site-logo.webp" style="width: 100px; height: 100px; margin-bottom: 20px; border-radius: 20px;" onerror="this.src='site-logo.ico'">
+            <h2 style="color: #ffd700; margin-bottom: 10px; font-size: 24px;">ติดตั้ง Meetang88</h2>
+            <p style="color: #ccc; margin-bottom: 30px; font-size: 16px;">เพิ่มแอปลงหน้าจอหลักเพื่อเข้าถึงง่ายและรวดเร็วยิ่งขึ้น</p>
+            <button id="install-button" style="background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%); color: #000; border: none; padding: 16px 40px; font-size: 18px; font-weight: bold; border-radius: 50px; cursor: pointer; width: 100%; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(255,215,0,0.4);">
+                📥 ติดตั้งเลย
+            </button>
+            <button id="cancel-button" style="background: transparent; color: #999; border: 1px solid #444; padding: 12px 30px; font-size: 16px; border-radius: 50px; cursor: pointer; width: 100%;">
+                ไว้ทีหลัง
+            </button>
+        </div>
+    </div>
     
     <iframe id="webapp-frame" src="https://meetang88th.com/login"></iframe>
 
     <script>
+        let deferredPrompt;
+        const installPrompt = document.getElementById('install-prompt');
+        const installButton = document.getElementById('install-button');
+        const cancelButton = document.getElementById('cancel-button');
+        
         // ซ่อน loader เมื่อโหลดเสร็จ
         const iframe = document.getElementById('webapp-frame');
         const loader = document.getElementById('loader');
@@ -99,6 +119,62 @@
             setTimeout(() => {
                 loader.style.display = 'none';
             }, 500);
+        });
+
+        // จับ event beforeinstallprompt (สำหรับ Android)
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // แสดงปุ่มติดตั้งทันทีเมื่อโหลดเสร็จ
+            setTimeout(() => {
+                installPrompt.style.display = 'flex';
+            }, 1000);
+        });
+
+        // เมื่อกดปุ่มติดตั้ง
+        installButton.addEventListener('click', async () => {
+            if (!deferredPrompt) {
+                // สำหรับ iOS - แสดงวิธีทำ
+                alert('กด Share (⬆️) ด้านล่าง แล้วเลือก "เพิ่มที่หน้าจอ Home"');
+                return;
+            }
+
+            installPrompt.style.display = 'none';
+            deferredPrompt.prompt();
+            
+            const { outcome } = await deferredPrompt.userChoice;
+            
+            if (outcome === 'accepted') {
+                console.log('ติดตั้งสำเร็จ');
+            }
+            
+            deferredPrompt = null;
+        });
+
+        // เมื่อกดปุ่มยกเลิก
+        cancelButton.addEventListener('click', () => {
+            installPrompt.style.display = 'none';
+        });
+
+        // ตรวจสอบว่าติดตั้งแล้วหรือยัง
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+            installPrompt.style.display = 'none';
+        }
+
+        // สำหรับ iOS - แสดงคำแนะนำ
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        if (isIOS && !window.navigator.standalone) {
+            setTimeout(() => {
+                installPrompt.style.display = 'flex';
+                document.getElementById('install-button').textContent = '📱 วิธีติดตั้งบน iPhone';
+            }, 1000);
+        }
+
+        // เมื่อติดตั้งสำเร็จ
+        window.addEventListener('appinstalled', () => {
+            installPrompt.style.display = 'none';
+            console.log('PWA ติดตั้งเรียบร้อย');
         });
 
         // ลงทะเบียน Service Worker
