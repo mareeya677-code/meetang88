@@ -83,21 +83,14 @@
         }
 
         function showManualOption() {
+            // ถ้าไม่สามารถติดตั้งได้ ให้เปิดเว็บหลักเลย
+            message.textContent = 'เปิดแอพ Meetang88';
+            status.textContent = 'กำลังเปิด...';
             spinner.style.display = 'none';
-            message.textContent = 'ติดตั้งแอพ Meetang88';
             
-            const isAndroid = /android/i.test(navigator.userAgent);
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-            
-            if (isAndroid) {
-                status.innerHTML = 'กดเมนู <strong>3 จุด (⋮)</strong> มุมขวาบน<br>แล้วเลือก "เพิ่มลงในหน้าจอหลัก"';
-            } else if (isIOS) {
-                status.innerHTML = 'กด <strong>Share (📤)</strong><br>แล้วเลือก "เพิ่มไปที่หน้าจอโฮม"';
-            } else {
-                status.innerHTML = 'กดเมนู <strong>3 จุด (⋮)</strong><br>แล้วเลือก "ติดตั้งแอป"';
-            }
-            
-            manualBtn.style.display = 'inline-block';
+            setTimeout(() => {
+                window.location.href = 'https://meetang88th.com/login';
+            }, 1000);
         }
 
         manualBtn.addEventListener('click', () => {

